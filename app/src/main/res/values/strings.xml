@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">exchange</string>
+    <string name="btn_dollar">dollar</string>
+    <string name="btn_euro">euro</string>
+    <string name="btn_won">won</string>
+    <string name="btn_ex">exchange</string>
+</resources>
