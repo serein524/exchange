@@ -4,4 +4,5 @@
     <string name="btn_euro">euro</string>
     <string name="btn_won">won</string>
     <string name="btn_ex">exchange</string>
+    <string name="btn_thread">newthread</string>
 </resources>

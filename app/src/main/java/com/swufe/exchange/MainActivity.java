@@ -33,8 +33,9 @@ public class MainActivity extends AppCompatActivity {
     float euro= (float)0.1259;
     float won= (float)171.7179;*/
     EditText et;
+    private Handler handler;
+    //private Thread thread;
 
-    private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,7 @@ public class MainActivity extends AppCompatActivity {
         editor.putFloat("won_rate", (float) 171.7179);
         //editor.commit();
         editor.apply();//commit是同步过程，apply是异步，后台将数据保存在硬件
-        //线程通信
-
+        //Toast.makeText(this,"通信成功", LENGTH_SHORT).show();
     }
 
     public void exchange(View btn) {
@@ -116,54 +116,28 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    public void run(View view){
+    //public void run(View view){
+    public class myrun implements Runnable {
         //线程通信
-        final Handler handler;
-        handler = new Handler() {
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                if (msg.what == 5) {
-                    String s = (String) msg.obj;
-                    Log.i(TAG, "" + s);
+        public void run() {
+            Handler handler;
+            handler = new Handler() {
+                @Override
+                public void handleMessage(Message msg) {
+                    if (msg.what == 5) {
+                        String str = (String) msg.obj;
+                        Log.i(TAG, "handleMessage: getMessage msg = " + str);
+
+                    }
+                    super.handleMessage(msg);
                 }
-            }
-        };
-        thread = new Thread() {
-            public void run() {
-                Message message = new Message();
-                message.what = 5;
-                message.obj = "hello from run";
-                handler.sendMessage(message);
-//                URL url = null;
-//                try {
-//                    url = new URL("www.usd-cny.com/bankofchina.htm");
-//                    HttpURLConnection http = (HttpURLConnection) url.openConnection();
-//                    InputStream in = http.getInputStream();
-//                    String html = inputStream2String(in);
-//                    Log.i(TAG, "run: html=" + html);
-//                } catch (MalformedURLException e) {
-//                    e.printStackTrace();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-            }
+            };
+//获取Msg对象，用于返回主线程
+            Message msg = handler.obtainMessage(5);
+//msg.what = 5;
+            msg.obj = "Hello from run()";
+            handler.sendMessage(msg);
 
-            private String inputStream2String(InputStream inputStream) throws IOException {
-                final int bufferSize = 1024;
-                final char[] buffer = new char[bufferSize];
-                final StringBuilder out = new StringBuilder();
-                Reader in = new InputStreamReader(inputStream, "gb2312");
-                while (true) {
-                    int rsz = in.read(buffer, 0, buffer.length);
-                    if (rsz < 0)
-                        break;
-                    out.append(buffer, 0, rsz);
-                }
-                return out.toString();
-            }
-
-        };
-
-
+        }
     }
 }
