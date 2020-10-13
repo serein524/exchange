@@ -45,13 +45,13 @@ public class MainActivity extends AppCompatActivity {
 
         //生成myrate.xml文件
         //获取SharedPreferences对象
-        SharedPreferences sp = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        editor.putFloat("dollar_rate", (float) 0.1465);
-        editor.putFloat("euro_rate", (float) 0.1259);
-        editor.putFloat("won_rate", (float) 171.7179);
-        //editor.commit();
-        editor.apply();//commit是同步过程，apply是异步，后台将数据保存在硬件
+//        SharedPreferences sp = getSharedPreferences("myrate", Activity.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sp.edit();
+//        editor.putFloat("dollar_rate", (float) 0.1465);
+//        editor.putFloat("euro_rate", (float) 0.1259);
+//        editor.putFloat("won_rate", (float) 171.7179);
+//        //editor.commit();
+//        editor.apply();//commit是同步过程，apply是异步，后台将数据保存在硬件
         //Toast.makeText(this,"通信成功", LENGTH_SHORT).show();
     }
 
