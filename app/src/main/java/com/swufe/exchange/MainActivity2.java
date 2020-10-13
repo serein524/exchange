@@ -129,4 +129,9 @@ public class MainActivity2 extends AppCompatActivity {
         Intent inte = new Intent(MainActivity2.this, RateListActivity.class);
         startActivity(inte);
     }
+    public void showlist(View v) {
+        Log.i("main", "onClick check:jump to checkrate");
+        Intent inte = new Intent(MainActivity2.this, list_view.class);
+        startActivity(inte);
+    }
 }
