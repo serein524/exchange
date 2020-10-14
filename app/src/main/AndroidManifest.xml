@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".list_view"></activity>
+        <activity android:name=".calculate"></activity>
+        <activity android:name=".list_view1" />
+        <activity android:name=".list_view" />
         <activity android:name=".MainActivity3" />
         <activity android:name=".RateListActivity" />
         <activity android:name=".MainActivity2">

@@ -130,8 +130,13 @@ public class MainActivity2 extends AppCompatActivity {
         startActivity(inte);
     }
     public void showlist(View v) {
-        Log.i("main", "onClick check:jump to checkrate");
+        Log.i("main", "onClick check:jump to item_view");
         Intent inte = new Intent(MainActivity2.this, list_view.class);
+        startActivity(inte);
+    }
+    public void selfdefined(View v) {
+        Log.i("main", "onClick check:jump to list_view");
+        Intent inte = new Intent(MainActivity2.this, list_view1.class);
         startActivity(inte);
     }
 }

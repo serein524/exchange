@@ -22,10 +22,8 @@ import java.util.List;
 public class list_view extends AppCompatActivity {
     private Handler handler;
     ListView listView;
-
-    private static final String TAG = "MainActivity3";
+    private static final String TAG = "list_view";
     List<HashMap<String, String>> listItems = null;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +69,6 @@ public class list_view extends AppCompatActivity {
                         String rate = ra + "";
                         map.put("ItemTitle", country);
                         map.put("ItemDetail", rate);
-
                         listItems.add(map);
                         Log.i(TAG, "run:add to listItems" + i);
                     }
@@ -83,7 +80,7 @@ public class list_view extends AppCompatActivity {
                 message.what = 6;
                 message.obj=listItems;
                 handler.sendMessage(message);
-                Log.i("MainActivity3", listItems.toString());
+                Log.i("list_view", listItems.toString());
             }
         }.start();
     }
