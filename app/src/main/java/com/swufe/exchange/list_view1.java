@@ -2,6 +2,9 @@ package com.swufe.exchange;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -28,47 +31,27 @@ public class list_view1 extends AppCompatActivity {
     private Handler handler;
     List listItems = null;
     ListView listView1;
+    MyAdapter myAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view1);
-        listView1=this.findViewById(R.id.listview1);
-        handler = new Handler(){
-            public void handleMessage(Message msg){
-                if(msg.what==8){
+        listView1 = this.findViewById(R.id.listview1);
+        handler = new Handler() {
+            public void handleMessage(Message msg) {
+                if (msg.what == 8) {
                     listItems = (List<HashMap<String, String>>) msg.obj;
-                    MyAdapter myAdapter = new MyAdapter(list_view1.this,
+                    myAdapter = new MyAdapter(list_view1.this,
                             R.layout.activity_list_view1,
                             (ArrayList<HashMap<String, String>>) listItems);
                     //setListAdapter(myAdapter);
                     listView1.setAdapter(myAdapter);
-                    listView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Object itemAtPosition = listView1.getItemAtPosition(position);
-                            //方法一：使用position定位到Hashmap，从中取得数据
-                            HashMap<String,String> map = (HashMap<String, String>) itemAtPosition;
-                            String titleStr = map.get("ItemTitle");
-                            String detailStr = map.get("ItemDetail");
-                            Log.i(TAG, "onItemClick: titleStr=" + titleStr);
-                            Log.i(TAG, "onItemClick: detailStr=" + detailStr);
-                            //方法二：使用findviewbyid获得点击的控件，从界面中获取它的值
-//                            TextView title = (TextView) view.findViewById(R.id.itemTitle);
-//                            TextView detail = (TextView) view.findViewById(R.id.itemDetail);
-//                            String title2 = String.valueOf(title.getText());
-//                            String detail2 = String.valueOf(detail.getText());
-//                            Log.i(TAG, "onItemClick: title2=" + title2);
-//                            Log.i(TAG, "onItemClick: detail2=" + detail2);
-                            Intent o = new Intent(list_view1.this, calculate.class);
-                            Bundle bdl = new Bundle();
-                            bdl.putString("Title",titleStr);
-                            bdl.putString("Detail",detailStr);
-                            o.putExtras(bdl);
-                            startActivity(o);
+                    listView1.setEmptyView(findViewById(R.id.nodata));
+                    listView1.setOnItemClickListener(new shortclick());
+                    listView1.setOnItemLongClickListener(new longclick());
 
-                        }
-                    }) ;
-                    }
+                }
             }
 
         };
@@ -110,11 +93,64 @@ public class list_view1 extends AppCompatActivity {
                 }
                 Message message = new Message();
                 message.what = 8;
-                message.obj=listItems;
+                message.obj = listItems;
                 handler.sendMessage(message);
                 Log.i("list_view1", listItems.toString());
             }
         }.start();
 
     }
-}
+    //点击跳转到calculate界面进行汇率转换
+        public class shortclick implements AdapterView.OnItemClickListener {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // 方法一：使用position定位到Hashmap，从中取得数据
+                Object itemAtPosition = listView1.getItemAtPosition(position);
+                HashMap<String, String> map = (HashMap<String, String>) itemAtPosition;
+                String titleStr = map.get("ItemTitle");
+                String detailStr = map.get("ItemDetail");
+                Log.i(TAG, "onItemClick: titleStr=" + titleStr);
+                Log.i(TAG, "onItemClick: detailStr=" + detailStr);
+                //方法二：使用findviewbyid获得点击的控件，从界面中获取它的值
+//                            TextView title = (TextView) view.findViewById(R.id.itemTitle);
+//                            TextView detail = (TextView) view.findViewById(R.id.itemDetail);
+//                            String title2 = String.valueOf(title.getText());
+//                            String detail2 = String.valueOf(detail.getText());
+//                            Log.i(TAG, "onItemClick: title2=" + title2);
+//                            Log.i(TAG, "onItemClick: detail2=" + detail2);
+                Intent o = new Intent(list_view1.this, calculate.class);
+                Bundle bdl = new Bundle();
+                bdl.putString("Title", titleStr);
+                bdl.putString("Detail", detailStr);
+                o.putExtras(bdl);
+                startActivity(o);
+
+            }
+        }
+        //长按在页面删除数据
+        public class longclick implements AdapterView.OnItemLongClickListener {
+
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(list_view1.this);
+                builder.setTitle("提示")
+                        .setMessage("请确认是否删除当前数据")
+                        .setPositiveButton("是", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                listItems.remove(position);
+
+                                myAdapter.notifyDataSetChanged();
+                            }
+                        }).setNegativeButton("否", null);
+                builder.create().show();
+//            Object itemAtPosition = listView1.getItemAtPosition(position);
+//            myAdapter.remove(listView1.getItemAtPosition(position));
+//            HashMap<String,String> map = (HashMap<String, String>) itemAtPosition;
+//            String titleStr = map.get("ItemTitle");
+//            String detailStr = map.get("ItemDetail");
+//            Log.i(TAG, "onItemClick: remove" + titleStr+"----"+detailStr);
+                return true;
+            }
+        }
+    }
