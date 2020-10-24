@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //setContentView(R.layout.activity_fragment);
         et = findViewById(R.id.edit);
 
         //生成myrate.xml文件
@@ -140,4 +141,11 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
+
+
+    public void home(View btn){
+        Intent main2=new Intent(MainActivity.this,FrameActivity.class);
+        startActivity(main2);
+    }
+
 }

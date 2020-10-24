@@ -57,6 +57,14 @@
         android:textSize="20sp"
         android:text="@string/btn_ex"
         android:onClick="open"/>
+    <Button
+        android:id="@+id/esv"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="20sp"
+        android:text="frame"
+        android:onClick="home"/>
 <!--    <Button-->
 <!--        android:id="@+id/newthread"-->
 <!--        android:layout_width="140dp"-->

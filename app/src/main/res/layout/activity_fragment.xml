@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/activity_fragment"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/fragment_main"
+        android:name="com.swufe.exchange.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="12" />
+
+    <fragment
+        android:id="@+id/fragment_func"
+        android:name="com.swufe.exchange.FuncFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="12" />
+
+    <fragment
+        android:id="@+id/fragment_setting"
+        android:name="com.swufe.exchange.SettingFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="12" />
+
+    <RadioGroup
+        android:id="@+id/bottomGroup"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="0.01"
+        android:background="#FFA000"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radioHome"
+            android:layout_width="183dp"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical">
+
+        </RadioButton>
+
+        <RadioButton
+            android:id="@+id/radioFunc"
+            android:layout_width="183dp"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal|center_vertical"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/radioSetting"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"></RadioButton>
+    </RadioGroup>
+
+</LinearLayout>
